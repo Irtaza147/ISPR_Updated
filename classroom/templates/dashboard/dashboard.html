@@ -1,0 +1,78 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<style>
+    .welcome-container {
+        margin-top: 50px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .welcome-message {
+        font-size: 50px;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .additional-features {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 40px;
+    }
+
+    .attractive-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="welcome-container">
+    <table>
+        <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+            <a href="">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Overview</li>
+            </ol>
+        <tr>
+            <th colspan="2">Welcome to ISPR (IoT Security Patch Repository), a cutting-edge platform designed to enhance the security of your IoT devices. ISPR offers a centralized and efficient solution for managing security patches, ensuring the integrity of your IoT ecosystem.</th>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td colspan="2" class="additional-features">
+                <p>Explore some of our key features:</p>
+                <ul>
+                    <li>Centralized Patch Management for IoT devices</li>
+                    <li>Compatibility with a diverse range of IoT architectures</li>
+                    <li>Real-time Security Auditing and Assessment</li>
+                    <li>Role-based Access Control for effective user management</li>
+                    <!-- Add more features as needed -->
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <div class="attractive-image">
+        <!-- Add an attractive image related to your ISPR project -->
+        <img src="{% static '/img/IoT.png' %}" alt="ISPR Project Image">
+    </div>
+</div>
+
+{% endblock %}

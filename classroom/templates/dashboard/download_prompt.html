@@ -1,0 +1,28 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Prompt</title>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <button id="downloadButton">Download</button>
+
+    <script>
+        // Add an event listener to the download button
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            // Simulate a click event on the download link
+            var downloadLink = document.createElement('a');
+            downloadLink.href = '{{ download_link }}';
+            downloadLink.download = 'firmware.zip';  // Specify the file name for the download
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        });
+    </script>
+</body>
+</html>
+

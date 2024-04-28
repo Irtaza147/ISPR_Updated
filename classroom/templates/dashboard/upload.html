@@ -1,0 +1,72 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="center-div">
+    <div class="container">
+        <div class="py-3 text-center bg-white text-dark">
+            <h3 class="mb-2">Upload an Image</h3>
+            <form method="post" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="btn btn-sm btn-primary" value="Upload">
+            </form>
+        </div>
+    </div>
+</div>
+
+<head>
+    <style>
+        .center-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .btn-custom {
+            font-size: 10px; /* Adjust the font size as needed */
+            padding: 4px 15px;  /* Adjust the padding to control the button size */
+        }
+    </style>
+    
+    <div class="center-div"><br>
+        <div class="container">
+            <div class="py-4 text-center bg-white text-dark">
+                <h2 class="mb-3">Upload an Image For Number Plate</h2><br>
+                <form method="post" enctype="multipart/form-data" action="{% url 'plate_processing' %}">
+                    {% csrf_token %}
+                    {{ form.image }}
+                    <button type="submit" name="param" class="btn btn-primary btn-custom">Apply OCR</button>
+                </form>
+            </div>
+        </div><br>
+    </div>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Content on the right side -->
+            <div class="col-md-6 text-right"><br><br><br><br>
+                <h4 class="mb-2" style="font-size: 20px;">Number Plate</h4>
+                <p style="font-size: 18px;">{{ output_text }}</p>
+            </div>
+    
+            <!-- Empty column to center the content -->
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</body>
+
+</div><br>
+
+
+    
+{% endblock %}

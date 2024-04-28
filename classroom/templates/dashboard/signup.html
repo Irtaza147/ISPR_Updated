@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ISPR</title>
+    <link href="{% static 'classroom/css/home/css/index.css' %}" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevent scrolling on the body */
+        }
+
+        .video {
+            width: 100%;
+            height: auto;
+            position: fixed;
+            z-index: -1;
+        }
+
+        .bg-heading {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0px;
+            text-align: center;
+            z-index: 1; /* Ensure the heading is above the video */
+        }
+
+        .form-container {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: rgb(255, 255, 255);
+            z-index: 2;
+            width: 40%; /* Set the width to 50% */
+            background-color: rgba(0, 0, 0, 0.5); /* Background color matching ISPR title */
+            padding: -20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-table {
+            width: 100%; /* Adjust the width of the form table as needed */
+            margin: 0 auto; /* Center the form table on the page */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center; /* Align items vertically in the same row */
+        }
+
+        .form-table label,
+        .form-table input,
+        .form-table select,
+        .form-table button {
+            width: calc(50% - 10px); /* Set the width of labels and form fields to 48% */
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .form-table label {
+            font-weight: bold;
+            text-align: left;
+            color: white;
+        }
+
+        .form-table input,
+        .form-table select,
+        .form-table button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-table button {
+            background-color: #133044;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%; /* Full width for the button */
+        }
+
+        .form-table button:hover {
+            background-color: #15415e;
+        }
+    </style>
+</head>
+<body>
+
+<video loop muted autoplay playsinline class="video">
+    <source src="{% static 'classroom/css/home/css/Iot.mp4' %}" type="video/mp4" />
+</video>
+
+<div class="bg-heading">
+    <h2 class="w3-container w3-center w3-animate-zoom section" style="font-size: 30px;">
+        IOT Security Patch Repository
+    </h2>
+</div>
+
+<div class="form-container">
+    <div class="form-table">
+        <img src="{% static '/assets/css/logo.jpg' %}" alt="Logo" style="width: 70px; height: 70px; border-radius: 50%; margin-bottom: 10px;">
+        {% if form.errors %}
+  <div class="error-message" style="color: red;">
+    <h3>Errors:</h3>
+    <ul>
+      {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+          <li>{{ field }}: {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%;">
+                <label for="{{ form.first_name.id_for_label }}" style="color: white;">First Name:</label>
+                {{ form.first_name }}
+                
+                <label for="{{ form.last_name.id_for_label }}" style="color: white;">Last Name:</label>
+                {{ form.last_name }}
+                
+                <label for="{{ form.username.id_for_label }}" style="color: white;">Username:</label>
+                {{ form.username }}
+                
+                <label for="{{ form.password1.id_for_label }}" style="color: white;">Password:</label>
+                {{ form.password1 }}
+                
+                <label for="{{ form.password2.id_for_label }}" style="color: white;">Confirm Password:</label>
+                {{ form.password2 }}
+                
+                <label for="{{ form.role.id_for_label }}" style="color: white;">Role:</label>
+                {{ form.role }}
+                
+                <div style="width: 100%; text-align: center;">
+                    <button type="submit">Signup</button>
+                </div>
+            </div>
+       
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

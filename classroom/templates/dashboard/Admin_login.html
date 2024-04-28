@@ -1,0 +1,94 @@
+{% load static %}
+<title>ISPR</title>
+<video loop muted autoplay playsinline class="video">
+  <source src="{% static 'classroom/css/home/css/Iot.mp4' %}" type="video/mp4" />
+</video>
+<style>
+  body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+  }
+
+  .video {
+      width: 100%;
+      height: auto;
+      position: fixed;
+      z-index: -1;
+  }
+
+  .bg-heading {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 20px;
+      text-align: center;
+  }
+
+  .section {
+      margin: 0;
+  }
+
+  .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+  }
+
+  .buttons-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+  }
+
+  .user-type-button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+  }
+
+  .user-type-button:hover {
+      background-color: #15415e;
+  }
+</style>
+<link href="{% static 'classroom/css/home/css/index.css' %}" rel="stylesheet">
+
+<div class="bg-heading">
+  <h2 class="w3-container w3-center w3-animate-zoom section" style="font-size:35px">
+      IOT Security Patch Repository
+  </h2>
+</div>
+
+
+<div class="box">
+  <h2>Login Here</h2>
+  <form method="POST" action="{% url 'admin_login' %}">
+      {% csrf_token %}
+    <div class="inputBox">
+      <input type="text" name="username" required onkeyup="this.setAttribute('value', this.value);" value="">
+      <label>Username</label>
+    </div>
+    <div class="inputBox">
+      <input type="password" name="password" required onkeyup="this.setAttribute('value', this.value);" value="">
+      <label>Password</label>
+    </div>
+    <input type="submit" name="sign-in" value="Sign In">
+  </form>
+   <br>
+   <div class="form-group">
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-danger" style="color:red;"> {{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+</div>

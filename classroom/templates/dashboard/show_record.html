@@ -1,0 +1,126 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+    <div id="content" class="p-8 p-md-5 pt-5">
+        <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Record Details</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="col-md-10 col-sm-4 col-xs-4">
+                        <div class="card-body">
+                            {% if firmware_records %}
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Firmware Name</th>
+                                            <th>Device Model</th>
+                                            <th>Current Version</th>
+                                            <th>File Path</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for firmware_record in firmware_records %}
+                                            <tr>
+                                                <td>{{ firmware_record.name }}</td>
+                                                <td>{{ firmware_record.device_model }}</td>
+                                                <td>{{ firmware_record.current_version }}</td>
+                                                <td>
+                                                    {% if firmware_record.firmware_file %}
+                                                        {{ firmware_record.firmware_file.url }}
+                                                    {% else %}
+                                                        No file uploaded
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Actions">
+                                                        <a href="{% url 'edit_firmware' firmware_record.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                                        <a href="{% url 'delete_firmware' firmware_record.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>No firmware records available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block extrascripts %}
+  <script type="text/javascript">
+      $(function () {
+        var asyncSuccessMessageUpdate = [
+            "<div ",
+            "style='position:fixed;top:0;z-index:10000;width:100%;border-radius:0;' ",
+            "class='alert alert-icon alert-success alert-dismissible fade show mb-0' role='alert'>",
+            "Success: Data was updated.",
+            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>",
+            "<span aria-hidden='true'>&times;</span>",
+            "</button>",
+            "</div>",
+            "<script>",
+            "$('.alert').fadeTo(2000, 500).slideUp(500, function () {$('.alert').slideUp(500).remove();});",
+            "<\/script>"
+          ].join("");
+
+
+      function updateBookModalForm() {
+            $(".update-book").each(function () {
+              $(this).modalForm({
+                formURL: $(this).data("form-url"),
+                asyncUpdate: true,
+                asyncSettings: {
+                  closeOnSubmit: false,
+                  successMessage: asyncSuccessMessageUpdate,
+                  dataUrl: "books/",
+                  dataElementId: "#books-table",
+                  dataKey: "table",
+                  addModalFormFunction: updateBookModalForm
+                }
+              });
+            });
+          }
+          updateBookModalForm();     
+        
+          $(".bs-modal").each(function () {
+              $(this).modalForm({formURL: $(this).data("form-url")});
+          });
+
+          // Hide message
+          $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+              $(".alert").slideUp(500);
+          });
+      });
+  </script>
+    <style>
+        /* Additional styles go here if needed */
+    
+        /* Custom table styling */
+        .table th,
+        .table td {
+            text-align: center;
+        }
+    
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+    
+        /* Add more styles as needed */
+      </style>
+{% endblock extrascripts %}

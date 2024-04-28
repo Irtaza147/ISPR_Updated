@@ -1,0 +1,96 @@
+<!-- dashboard/edit_firmware.html -->
+
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+    <div id="content" class="p-8 p-md-5 pt-5">
+        <div class="col-md-12 col-sm-12 col-xs-10">
+            <div class="col-md-12 col-sm-12 col-xs-10">
+                <!-- Breadcrumbs-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Edit Firmware Record</a>
+                    </li>
+                </ol>
+            <!-- Edit form goes here -->
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <table class="table custom-table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Firmware Name</th>
+                            <td>{{ form.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Version</th>
+                            <td>{{ form.version }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Device Model</th>
+                            <td>{{ form.device_model }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Current Version</th>
+                            <td>{{ form.current_version }}</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">Upload New File</th>
+                            <td>
+                                <input type="file" name="firmware_file" id="id_firmware_file">
+                                <p class="text-muted" id="currentFileDisplay">
+                                    {% if form.instance.firmware_file %}
+                                        Current File: {{ form.instance.firmware_file.name }}
+                                    {% endif %}
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{% url 'firmware_records' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    // Handle file input change event
+    document.getElementById('id_firmware_file').addEventListener('change', function() {
+        // Update the current file display with the new file path
+        var currentFileDisplay = document.getElementById('currentFileDisplay');
+        currentFileDisplay.innerText = 'Current File: ' + this.files[0].name;
+    });
+</script>
+{% endblock body %}
+
+{% block extrastyles %}
+  <style>
+    /* Additional styles go here if needed */
+
+    /* Custom table styling */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .custom-table th {
+        background-color: #f2f2f2;
+    }
+
+    /* Add more styles as needed */
+  </style>
+{% endblock extrastyles %}
